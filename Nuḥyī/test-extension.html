@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuḥyī Extension Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nuḥyī Chrome Extension Test</h1>
+    
+    <div class="test-section info">
+        <h2>Extension Status</h2>
+        <p>This page helps test the Nuḥyī Chrome extension functionality.</p>
+        <p><strong>Note:</strong> This extension must be loaded as an unpacked extension in Chrome/Edge for testing.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>API Tests</h2>
+        <button onclick="testQuranAPI()">Test Quran API</button>
+        <button onclick="testPrayerTimesAPI()">Test Prayer Times API</button>
+        <div id="apiResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Storage Tests</h2>
+        <button onclick="testStorage()">Test Chrome Storage</button>
+        <div id="storageResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Installation Instructions</h2>
+        <ol>
+            <li>Open Chrome/Edge and go to <code>chrome://extensions/</code></li>
+            <li>Enable "Developer mode" (toggle in top right)</li>
+            <li>Click "Load unpacked" and select the Nuḥyī extension folder</li>
+            <li>The extension should appear in your extensions list</li>
+            <li>Click the extension icon to open the popup</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>Expected Features</h2>
+        <ul>
+            <li><strong>Quran Tab:</strong> Random Quranic verses with Arabic text and translation</li>
+            <li><strong>Azan Tab:</strong> Prayer times with notifications and sound</li>
+            <li><strong>Adhkar Tab:</strong> Morning/evening/sleep Adhkar with categories</li>
+            <li><strong>Reminders Tab:</strong> Custom reminders and Salah on Prophet notifications</li>
+            <li><strong>Settings:</strong> Dark mode, location, Azan audio, reminder customization</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Known Issues & Fixes</h2>
+        <ul>
+            <li><strong>Prayer Times Error:</strong> Fixed by using HTTPS API calls</li>
+            <li><strong>Adhkar Loading Error:</strong> Fixed by improving data structure and error handling</li>
+            <li><strong>Reminder Customization:</strong> Added pre-prayer minutes and Salah reminder frequency settings</li>
+        </ul>
+    </div>
+
+    <script>
+        async function testQuranAPI() {
+            const resultsDiv = document.getElementById('apiResults');
+            resultsDiv.innerHTML = '<p>Testing Quran API...</p>';
+            
+            try {
+                const response = await fetch('https://api.alquran.cloud/v1/ayah/random');
+                const data = await response.json();
+                
+                if (data.code === 200 && data.data) {
+                    resultsDiv.innerHTML = `
+                        <div class="success">
+                            <h3>✅ Quran API Test Successful</h3>
+                            <p><strong>Surah:</strong> ${data.data.surah.englishName}</p>
+                            <p><strong>Verse:</strong> ${data.data.numberInSurah}</p>
+                            <p><strong>Text:</strong> ${data.data.text.substring(0, 100)}...</p>
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Invalid response format');
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Quran API Test Failed</h3>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testPrayerTimesAPI() {
+            const resultsDiv = document.getElementById('apiResults');
+            resultsDiv.innerHTML = '<p>Testing Prayer Times API...</p>';
+            
+            try {
+                const response = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Mecca&country=Saudi%20Arabia&method=2');
+                const data = await response.json();
+                
+                if (data.code === 200 && data.data && data.data.timings) {
+                    const timings = data.data.timings;
+                    resultsDiv.innerHTML = `
+                        <div class="success">
+                            <h3>✅ Prayer Times API Test Successful</h3>
+                            <p><strong>Date:</strong> ${data.data.date.readable}</p>
+                            <p><strong>Fajr:</strong> ${timings.Fajr}</p>
+                            <p><strong>Dhuhr:</strong> ${timings.Dhuhr}</p>
+                            <p><strong>Asr:</strong> ${timings.Asr}</p>
+                            <p><strong>Maghrib:</strong> ${timings.Maghrib}</p>
+                            <p><strong>Isha:</strong> ${timings.Isha}</p>
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Invalid response format');
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Prayer Times API Test Failed</h3>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testStorage() {
+            const resultsDiv = document.getElementById('storageResults');
+            resultsDiv.innerHTML = '<p>Testing Chrome Storage...</p>';
+            
+            try {
+                // Test if we're in a Chrome extension context
+                if (typeof chrome !== 'undefined' && chrome.storage) {
+                    const testData = { test: 'value', timestamp: Date.now() };
+                    await chrome.storage.local.set({ testData });
+                    const result = await chrome.storage.local.get(['testData']);
+                    
+                    if (result.testData && result.testData.test === 'value') {
+                        resultsDiv.innerHTML = `
+                            <div class="success">
+                                <h3>✅ Chrome Storage Test Successful</h3>
+                                <p>Storage is working correctly</p>
+                                <pre>${JSON.stringify(result.testData, null, 2)}</pre>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error('Storage data mismatch');
+                    }
+                } else {
+                    throw new Error('Chrome storage API not available');
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Chrome Storage Test Failed</h3>
+                        <p>Error: ${error.message}</p>
+                        <p><em>Note: This test only works when the extension is loaded in Chrome/Edge</em></p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 

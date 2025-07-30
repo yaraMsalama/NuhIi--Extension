@@ -1,0 +1,248 @@
+/* Custom styles for Nuḥyī extension */
+
+/* RTL Support */
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Arabic font optimization */
+.arabic-text {
+    font-family: 'Noto Naskh Arabic', serif;
+    line-height: 1.8;
+    font-size: 1.1em;
+}
+
+/* Tab transitions */
+.tab-content {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Prayer time styling */
+.prayer-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #bfdbfe;
+}
+
+.dark .prayer-time {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-color: #475569;
+}
+
+.prayer-time.next {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.dark .prayer-time.next {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Verse styling */
+.verse-text {
+    font-size: 1.2em;
+    line-height: 2;
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 0.5rem;
+    border: 1px solid #f59e0b;
+}
+
+.dark .verse-text {
+    background: linear-gradient(135deg, #451a03 0%, #78350f 100%);
+    border-color: #f59e0b;
+}
+
+.verse-info {
+    font-size: 0.9em;
+    color: #6b7280;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.dark .verse-info {
+    color: #9ca3af;
+}
+
+/* Adhkar styling */
+.dhikr-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.dark .dhikr-item {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+.dhikr-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dhikr-text {
+    font-size: 1.1em;
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+}
+
+.dhikr-count {
+    font-size: 0.9em;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.dark .dhikr-count {
+    color: #9ca3af;
+}
+
+/* Reminder styling */
+.reminder-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.dark .reminder-item {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+.reminder-text {
+    flex: 1;
+    margin-left: 0.75rem;
+}
+
+.reminder-time {
+    font-size: 0.9em;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.dark .reminder-time {
+    color: #9ca3af;
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #374151;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #64748b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* Modal animations */
+.modal-enter {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.modal-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.modal-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.modal-exit-active {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+/* Button hover effects */
+.btn-hover {
+    transition: all 0.2s ease;
+}
+
+.btn-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+select:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+    .verse-text {
+        font-size: 1em;
+    }
+    
+    .dhikr-text {
+        font-size: 1em;
+    }
+} 
