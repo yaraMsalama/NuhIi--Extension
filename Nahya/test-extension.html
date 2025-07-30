@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuḥyī Extension Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 15px; margin: 5px; background: #2563eb; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #1d4ed8; }
+        .result { margin-top: 10px; padding: 10px; background: #f3f4f6; border-radius: 5px; }
+        .success { background: #d1fae5; color: #065f46; }
+        .error { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+    <h1>Nuḥyī Extension Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Extension Status</h2>
+        <p><strong>Current Version:</strong> 1.0.0</p>
+        <p><strong>Features:</strong></p>
+        <ul>
+            <li>✅ Quran: Random verses with Arabic, transliteration, and translation</li>
+            <li>✅ Azan: Prayer times with location detection and country/city selection</li>
+            <li>✅ Adhkar: Morning and evening Adhkar</li>
+            <li>✅ Reminders: Custom reminders and Salah on Prophet notifications</li>
+            <li>✅ Settings: Dark mode, location, audio preferences, reminder customization</li>
+            <li>✅ Blue and white theme</li>
+            <li>✅ Fixed CSP and JavaScript errors</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>API Tests</h2>
+        <button onclick="testQuranAPI()">Test Quran API</button>
+        <button onclick="testPrayerTimesAPI()">Test Prayer Times API</button>
+        <button onclick="testLocationAPI()">Test Location API</button>
+        <div id="apiResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Chrome Storage Test</h2>
+        <button onclick="testStorage()">Test Chrome Storage</button>
+        <div id="storageResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Loading Instructions</h2>
+        <ol>
+            <li>Open Chrome/Edge and go to <code>chrome://extensions/</code></li>
+            <li>Enable "Developer mode" (toggle in top right)</li>
+            <li>Click "Load unpacked"</li>
+            <li>Select the <code>Nuḥyī</code> folder</li>
+            <li>The extension should appear in your extensions list</li>
+            <li>Click the extension icon to open the popup</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>Recent Fixes</h2>
+        <ul>
+            <li>✅ Removed Tailwind CSS CDN dependency (CSP violation)</li>
+            <li>✅ Created local <code>tailwind.css</code> with all required utilities</li>
+            <li>✅ Fixed JavaScript addEventListener errors for non-existent elements</li>
+            <li>✅ Updated tab color scheme to use blue instead of green</li>
+            <li>✅ Replaced problematic event listeners with correct ones</li>
+        </ul>
+    </div>
+
+    <script>
+        async function testQuranAPI() {
+            const results = document.getElementById('apiResults');
+            try {
+                const response = await fetch('https://api.alquran.cloud/v1/random');
+                const data = await response.json();
+                if (data.code === 200) {
+                    results.innerHTML = '<div class="result success">✅ Quran API working: ' + data.data.surah.name + ':' + data.data.numberInSurah + '</div>';
+                } else {
+                    results.innerHTML = '<div class="result error">❌ Quran API error: ' + data.status + '</div>';
+                }
+            } catch (error) {
+                results.innerHTML = '<div class="result error">❌ Quran API failed: ' + error.message + '</div>';
+            }
+        }
+
+        async function testPrayerTimesAPI() {
+            const results = document.getElementById('apiResults');
+            try {
+                const response = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Mecca&country=Saudi%20Arabia&method=4');
+                const data = await response.json();
+                if (data.code === 200) {
+                    results.innerHTML = '<div class="result success">✅ Prayer Times API working: Fajr at ' + data.data.timings.Fajr + '</div>';
+                } else {
+                    results.innerHTML = '<div class="result error">❌ Prayer Times API error: ' + data.status + '</div>';
+                }
+            } catch (error) {
+                results.innerHTML = '<div class="result error">❌ Prayer Times API failed: ' + error.message + '</div>';
+            }
+        }
+
+        async function testLocationAPI() {
+            const results = document.getElementById('apiResults');
+            try {
+                const response = await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=21.4225&longitude=39.8262&localityLanguage=ar');
+                const data = await response.json();
+                if (data.city) {
+                    results.innerHTML = '<div class="result success">✅ Location API working: ' + data.city + ', ' + data.countryName + '</div>';
+                } else {
+                    results.innerHTML = '<div class="result error">❌ Location API error: No location data</div>';
+                }
+            } catch (error) {
+                results.innerHTML = '<div class="result error">❌ Location API failed: ' + error.message + '</div>';
+            }
+        }
+
+        function testStorage() {
+            const results = document.getElementById('storageResults');
+            if (typeof chrome !== 'undefined' && chrome.storage) {
+                chrome.storage.sync.get(['settings'], function(result) {
+                    if (result.settings) {
+                        results.innerHTML = '<div class="result success">✅ Chrome Storage working: Settings found</div>';
+                    } else {
+                        results.innerHTML = '<div class="result success">✅ Chrome Storage working: No settings yet (normal for first run)</div>';
+                    }
+                });
+            } else {
+                results.innerHTML = '<div class="result error">❌ Chrome Storage not available (not running in extension context)</div>';
+            }
+        }
+    </script>
+</body>
+</html> 
