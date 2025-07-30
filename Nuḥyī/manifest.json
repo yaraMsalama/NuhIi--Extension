@@ -14,9 +14,6 @@
     "https://api.aladhan.com/*",
     "https://api.bigdatacloud.net/*"
   ],
-  "content_security_policy": {
-    "extension_pages": "script-src 'self' https://cdn.tailwindcss.com; object-src 'self'"
-  },
   "action": {
     "default_popup": "popup/index.html",
     "default_icon": {
