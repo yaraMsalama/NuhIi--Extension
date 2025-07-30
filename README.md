@@ -5,11 +5,11 @@
 
 ## 💡 عن نُحيي
 
-**بالمصري:**
+
 
 في دوشة حياتنا اللي مبتخلصش، ساعات بننسى أحلى اللحظات اللي فيها هدوء وسكينة. "نُحيي" جاي عشان يبقى كوبري يوصلك لروحانياتك، ويخلي تصفحك على النت عبادة. مع "نُحيي"، هيجيلك **أذان** دقيق لمواعيد الصلاة حسب مكانك، وتذكيرات جميلة عشان **تصلي على النبي ﷺ**، وتنبيهات **للأذكار** اليومية، وكمان شوية **آيات قرآنية** عشان تتدبر فيها. ده مش مجرد إكستنشن، دي دعوة دايمة عشان **تصحي** قلبك وروحك بذكر ربنا، خطوة بخطوة، كل يوم. خلي "نُحيي" جزء من استخدامك للإنترنت عشان تجدد إيمانك وتكسب ثواب.
 
-**In English:**
+
 
 In our bustling world, it's easy to overlook moments of tranquility and peace. **Nuḥyī** comes as a bridge to connect you with your spirituality, transforming your daily Browse into an act of worship. With **Nuḥyī**, you'll receive accurate **Azan** notifications for prayer times based on your location, blessed reminders to send **blessings upon the Prophet ﷺ**, timely alerts for daily **Adhkar**, and inspiring glimpses from the **Holy Quran** for contemplation. It's more than just an extension; it's a constant invitation to **revive** your heart and soul with the remembrance of Allah, step by step, every single day. Make **Nuḥyī** a part of your digital experience to renew your faith and earn blessings.
 
